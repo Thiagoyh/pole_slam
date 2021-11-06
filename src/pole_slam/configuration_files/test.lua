@@ -6,8 +6,8 @@ options = {
      num_lasers = 64,
      img_width = 1024,
 
-     min_cluster_dis = 0.1,
-     min_cluster_num = 6
+     min_cluster_dis = 1,
+     min_cluster_num = 3
 }
 
 return options
