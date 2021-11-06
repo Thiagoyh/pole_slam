@@ -1,0 +1,5 @@
+<launch>
+    <node name="pole_slam" pkg="pole_slam" type="test_" args="
+          --configuration_directory $(find pole_slam)/configuration_files
+          --configuration_basename test.lua" output="screen"/>
+</launch>
