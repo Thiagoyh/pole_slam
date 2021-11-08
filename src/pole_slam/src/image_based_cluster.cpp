@@ -8,7 +8,8 @@ namespace image_cluster
            height(options.img_height),
            width(options.img_width),
            min_point_num(options.min_cluster_num),
-           dis_thr(options.min_cluster_dis)
+           dis_thr(options.min_cluster_dis),
+           width_thr(options.width_thr)
            {
                std::cout << options.min_cluster_dis << std::endl;
                std::cout << options.min_cluster_num << std::endl;

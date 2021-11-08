@@ -8,6 +8,13 @@
 #include "spherical_conversion.h"
 #include "options.h"
 
+/**
+ * @param min_point_num: the minimum number of image cluster
+ * @param dis_thr: the threshold of distance when clustering
+ * @param width_thr: width threshole to remove the clusters which hardly looks like pole-feature;
+ * @param height: the height of depth image
+ * @param width: the width of depth image
+ */
 namespace image_cluster
 {
     class ImageCluster

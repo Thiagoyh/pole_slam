@@ -33,6 +33,9 @@ NodeOptions CreateNodeOptions(
       lua_parameter_dictionary->GetDouble("min_cluster_dis");
   options.min_cluster_num =
       lua_parameter_dictionary->GetInt("min_cluster_num");
+
+  options.width_thr =
+      lua_parameter_dictionary->GetInt("width_threshold");
 //   if (lua_parameter_dictionary->HasKey("publish_to_tf")) {
 //     options.publish_to_tf = lua_parameter_dictionary->GetBool("publish_to_tf");
 //   }

@@ -7,7 +7,8 @@ options = {
      img_width = 1024,
 
      min_cluster_dis = 0.08,
-     min_cluster_num = 3
+     min_cluster_num = 3,
+     width_threshold = 10
 }
 
 return options
