@@ -114,67 +114,62 @@ namespace image_cluster
         return clusters;
     }
 
-    // std::vector<Cluster> ImageCluster::remove_noise(const DepthType& range_data)
-    // {
-    //     //std::vector <std::vector<Index>> clusters_vec;
+    std::vector<Cluster> ImageCluster::remove_noise(const DepthType& range_data, const std::vector<Cluster>& clusters)
+    {
+        //std::vector <std::vector<Index>> clusters_vec;
 
-    //     std::vector<Cluster> clusters_filtered;
-    //     clusters_filtered.reserve(clusters.size());
+        std::vector<Cluster> clusters_filtered;
+        clusters_filtered.reserve(clusters.size());
 
-    //     for (std::vector<Cluster>::iterator iter = clusters.begin(); iter != clusters.end(); ++iter)
-    //     {
-    //         int min_height = iter->begin()->first;
-    //         int max_height = (--iter->end())->first;
+        for (std::vector<Cluster>::const_iterator iter = clusters.begin(); iter != clusters.end(); ++iter)
+        {
+            int min_height = iter->begin()->first;
+            int max_height = (--iter->end())->first;
 
-    //         int min_width = 1024;
-    //         int max_width = 1;
+            int min_width = 1024;
+            int max_width = 1;
 
-    //         //std::vector<Index> cluster_vec;
-    //         //cluster_vec.reserve(iter->size());
-    //         for (Cluster::iterator it_cluster = iter->begin(); it_cluster != iter->end(); ++it_cluster)
-    //         {
-    //             //cluster_vec.push_back(*it_cluster);
-    //             if(it_cluster->second < min_width)
-    //                 min_width = it_cluster->second;
-    //             if(it_cluster->second > max_width)
-    //                 max_width = it_cluster->second;
-    //         }
+            for (Cluster::iterator it_cluster = iter->begin(); it_cluster != iter->end(); ++it_cluster)
+            {
+                //cluster_vec.push_back(*it_cluster);
+                if(it_cluster->second < min_width)
+                    min_width = it_cluster->second;
+                if(it_cluster->second > max_width)
+                    max_width = it_cluster->second;
+            }
 
-    //         double ratio = (max_height - min_height + 1) / (max_width - min_width + 1);
 
-    //         int delate = 0;
-    //         bool dela = false;
+            double ratio = (max_height - min_height + 1) / (max_width - min_width + 1);
 
-    //         for (Cluster::iterator it_cluster = iter->begin(); it_cluster != iter->end(); ++it_cluster)
-    //         {
-    //             if(range_data[it_cluster->first][it_cluster->second + 1] != 0 &&
-    //              !in_set(*iter, Index{it_cluster->first, it_cluster->second + 1}) &&
-    //              range_data[it_cluster->first][it_cluster->second] > range_data[it_cluster->first][it_cluster->second + 1])
-    //             {
-    //                 dela = true;
-    //             }
+            int delate = 0;
+            bool dela = false;
 
-    //             if(range_data[it_cluster->first][it_cluster->second - 1] != 0 &&
-    //             !in_set(*iter, Index{it_cluster->first, it_cluster->second - 1}) &&
-    //              range_data[it_cluster->first][it_cluster->second] > range_data[it_cluster->first][it_cluster->second - 1])
-    //             {
-    //                 dela = true;
-    //             }
+            for (Cluster::iterator it_cluster = iter->begin(); it_cluster != iter->end(); ++it_cluster)
+            {
+                if(range_data[it_cluster->first][it_cluster->second + 1] != 0 &&
+                 !in_set(*iter, Index{it_cluster->first, it_cluster->second + 1}) &&
+                 range_data[it_cluster->first][it_cluster->second] > range_data[it_cluster->first][it_cluster->second + 1])
+                {
+                    dela = true;
+                }
 
-    //             if(dela)
-    //             {
-    //                 delate += 1;
-    //                 dela = false;
-    //             }
+                if(range_data[it_cluster->first][it_cluster->second - 1] != 0 &&
+                !in_set(*iter, Index{it_cluster->first, it_cluster->second - 1}) &&
+                 range_data[it_cluster->first][it_cluster->second] > range_data[it_cluster->first][it_cluster->second - 1])
+                {
+                    dela = true;
+                }
 
-    //             if (ratio < 1.0 || (delate > 0.3 * iter->size()) || (max_width - min_width + 1) > width_thr)
-    //             {
-    //                 continue;
-    //             }
-    //             else
-    //                 clusters_filtered.push_back(*iter);
-    //         }
-    //     }
-    //     return clusters_filtered;
-    // }
+                if(dela)
+                {
+                    delate += 1;
+                    dela = false;
+                }
+
+            }
+            if (!(ratio < 1.0 || (delate > 0.3 * iter->size()) || (max_width - min_width + 1) > width_thr))
+                clusters_filtered.push_back(*iter);
+        }
+        return clusters_filtered;
+    }
 }

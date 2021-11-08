@@ -24,10 +24,11 @@ namespace image_cluster
         std::set<Index> Get_open_set(const DepthType& range_data);
         std::vector<Cluster> gen_clusters(const DepthType& range_data);
 
-        //std::vector<Cluster> remove_noise(const DepthType& range_data);
+        std::vector<Cluster> remove_noise(const DepthType& range_data, const std::vector<Cluster>& clusters);
+
 
     private:
-        //std::vector<Cluster> clusters;
+
         int min_point_num = 3;
         double dis_thr = 0.08;
         int height = 64;
